@@ -207,9 +207,9 @@ public class BasicJdbcConverter extends BasicRelationalConverter implements Jdbc
 			return value;
 		}
 
-		if (value instanceof Array) {
+		if (value instanceof Array array) {
 			try {
-				return super.readValue(((Array) value).getArray(), type);
+				return super.readValue(array.getArray(), type);
 			} catch (SQLException | ConverterNotFoundException e) {
 				LOG.info("Failed to extract a value of type %s from an Array; Attempting to use standard conversions", e);
 			}
@@ -290,8 +290,8 @@ public class BasicJdbcConverter extends BasicRelationalConverter implements Jdbc
 		if (canWriteAsJdbcValue(value)) {
 
 			Object converted = writeValue(value, TypeInformation.of(JdbcValue.class));
-			if (converted instanceof JdbcValue) {
-				return (JdbcValue) converted;
+			if (converted instanceof JdbcValue jdbcValue) {
+				return jdbcValue;
 			}
 		}
 

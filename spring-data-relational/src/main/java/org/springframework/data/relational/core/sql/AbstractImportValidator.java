@@ -35,8 +35,8 @@ abstract class AbstractImportValidator implements Visitor {
 	@Override
 	public void enter(Visitable segment) {
 
-		if (segment instanceof Table && parent instanceof From) {
-			from.add((Table) segment);
+		if (segment instanceof Table table && parent instanceof From) {
+			from.add(table);
 		}
 
 		if (segment instanceof Where) {
@@ -66,13 +66,13 @@ abstract class AbstractImportValidator implements Visitor {
 				return;
 			}
 
-			if (segment instanceof Select) {
-				this.selectFilter = (Select) segment;
+			if (segment instanceof Select select) {
+				this.selectFilter = select;
 				return;
 			}
 
-			if (segment instanceof Table) {
-				requiredByWhere.add((Table) segment);
+			if (segment instanceof Table table) {
+				requiredByWhere.add(table);
 			}
 		}
 

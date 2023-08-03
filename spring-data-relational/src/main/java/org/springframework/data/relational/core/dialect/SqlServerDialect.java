@@ -68,7 +68,7 @@ public class SqlServerDialect extends AbstractDialect {
 
 		@Override
 		public String getLimitOffset(long limit, long offset) {
-			return String.format("OFFSET %d ROWS FETCH NEXT %d ROWS ONLY", offset, limit);
+			return "OFFSET %d ROWS FETCH NEXT %d ROWS ONLY".formatted(offset, limit);
 		}
 
 		@Override

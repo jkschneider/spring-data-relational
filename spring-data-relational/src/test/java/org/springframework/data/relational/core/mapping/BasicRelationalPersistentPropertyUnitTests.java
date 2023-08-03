@@ -175,14 +175,18 @@ public class BasicRelationalPersistentPropertyUnitTests {
 		public static String spelExpression1Value = "THE_FORCE_IS_WITH_YOU";
 
 		public static String littleBobbyTablesValue = "--; DROP ALL TABLES;--";
-		@Column(value = "#{T(org.springframework.data.relational.core.mapping."
-				+ "BasicRelationalPersistentPropertyUnitTests$DummyEntity"
-				+ ").spelExpression1Value}")
+		@Column(value = """
+				#{T(org.springframework.data.relational.core.mapping.\
+				BasicRelationalPersistentPropertyUnitTests$DummyEntity\
+				).spelExpression1Value}\
+				""")
 		private String spelExpression1;
 
-		@Column(value = "#{T(org.springframework.data.relational.core.mapping."
-				+ "BasicRelationalPersistentPropertyUnitTests$DummyEntity"
-				+ ").littleBobbyTablesValue}")
+		@Column(value = """
+				#{T(org.springframework.data.relational.core.mapping.\
+				BasicRelationalPersistentPropertyUnitTests$DummyEntity\
+				).littleBobbyTablesValue}\
+				""")
 		private String littleBobbyTables;
 
 		@Column(

@@ -286,9 +286,9 @@ abstract class NamedParameterUtils {
 			NamedParameters.NamedParameter marker = markerHolder.getOrCreate(paramName);
 			if (paramSource.hasValue(paramName)) {
 				Object value = paramSource.getValue(paramName);
-				if (value instanceof Collection) {
+				if (value instanceof Collection collection) {
 
-					Iterator<?> entryIter = ((Collection<?>) value).iterator();
+					Iterator<?> entryIter = collection.iterator();
 					int k = 0;
 					int counter = 0;
 					while (entryIter.hasNext()) {
@@ -297,8 +297,7 @@ abstract class NamedParameterUtils {
 						}
 						k++;
 						Object entryItem = entryIter.next();
-						if (entryItem instanceof Object[]) {
-							Object[] expressionList = (Object[]) entryItem;
+						if (entryItem instanceof Object[] expressionList) {
 							actualSql.append('(');
 							for (int m = 0; m < expressionList.length; m++) {
 								if (m > 0) {
@@ -510,8 +509,7 @@ abstract class NamedParameterUtils {
 			}
 
 			for (List<BindMarker> outer : bindMarkers) {
-				if (value instanceof Collection) {
-					Collection<Object> collection = (Collection<Object>) value;
+				if (value instanceof Collection collection) {
 
 					Iterator<Object> iterator = collection.iterator();
 					Iterator<BindMarker> markers = outer.iterator();
@@ -520,8 +518,7 @@ abstract class NamedParameterUtils {
 
 						Object valueToBind = iterator.next();
 
-						if (valueToBind instanceof Object[]) {
-							Object[] objects = (Object[]) valueToBind;
+						if (valueToBind instanceof Object[] objects) {
 							for (Object object : objects) {
 								bind(target, markers, object);
 							}
@@ -541,9 +538,9 @@ abstract class NamedParameterUtils {
 				Object valueToBind) {
 
 			Assert.isTrue(markers.hasNext(),
-					() -> String.format(
-							"No bind marker for value [%s] in SQL [%s]; Check that the query was expanded using the same arguments",
-							valueToBind, toQuery()));
+					() -> 
+				"No bind marker for value [%s] in SQL [%s]; Check that the query was expanded using the same arguments".formatted(
+			valueToBind, toQuery()));
 
 			markers.next().bind(target, valueToBind);
 		}

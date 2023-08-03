@@ -176,19 +176,15 @@ public class QueryMapper {
 			return expression;
 		}
 
-		if (expression instanceof Column) {
-
-			Column column = (Column) expression;
+		if (expression instanceof Column column) {
 			Field field = createPropertyField(entity, column.getName());
 			TableLike table = column.getTable();
 
 			Column columnFromTable = table.column(field.getMappedColumnName());
-			return column instanceof Aliased ? columnFromTable.as(((Aliased) column).getAlias()) : columnFromTable;
+			return column instanceof Aliased a ? columnFromTable.as(a.getAlias()) : columnFromTable;
 		}
 
-		if (expression instanceof SimpleFunction) {
-
-			SimpleFunction function = (SimpleFunction) expression;
+		if (expression instanceof SimpleFunction function) {
 
 			List<Expression> arguments = function.getExpressions();
 			List<Expression> mappedArguments = new ArrayList<>(arguments.size());
@@ -199,10 +195,10 @@ public class QueryMapper {
 
 			SimpleFunction mappedFunction = SimpleFunction.create(function.getFunctionName(), mappedArguments);
 
-			return function instanceof Aliased ? mappedFunction.as(((Aliased) function).getAlias()) : mappedFunction;
+			return function instanceof Aliased a ? mappedFunction.as(a.getAlias()) : mappedFunction;
 		}
 
-		throw new IllegalArgumentException(String.format("Cannot map %s", expression));
+		throw new IllegalArgumentException("Cannot map %s".formatted(expression));
 	}
 
 	/**
@@ -438,9 +434,7 @@ public class QueryMapper {
 			return null;
 		}
 
-		if (value instanceof Pair) {
-
-			Pair<Object, Object> pair = (Pair<Object, Object>) value;
+		if (value instanceof Pair pair) {
 
 			Object first = convertValue(pair.getFirst(),
 					typeInformation.getActualType() != null ? typeInformation.getRequiredActualType() : TypeInformation.OBJECT);
@@ -490,12 +484,12 @@ public class QueryMapper {
 
 			Condition condition;
 
-			if (mappedValue instanceof Iterable) {
+			if (mappedValue instanceof Iterable iterable) {
 
 				List<Expression> expressions = new ArrayList<>(
-						mappedValue instanceof Collection ? ((Collection<?>) mappedValue).size() : 10);
+						mappedValue instanceof Collection c ? c.size() : 10);
 
-				for (Object o : (Iterable<?>) mappedValue) {
+				for (Object o : iterable) {
 
 					BindMarker bindMarker = bindings.nextMarker(column.getName().getReference());
 					expressions.add(bind(o, valueType, bindings, bindMarker));

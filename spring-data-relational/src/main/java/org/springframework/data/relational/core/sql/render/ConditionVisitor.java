@@ -62,33 +62,33 @@ class ConditionVisitor extends TypedSubtreeVisitor<Condition> implements PartRen
 	@Nullable
 	private DelegatingVisitor getDelegation(Condition segment) {
 
-		if (segment instanceof AndCondition) {
-			return new MultiConcatConditionVisitor(context, (AndCondition) segment, builder::append);
+		if (segment instanceof AndCondition condition) {
+			return new MultiConcatConditionVisitor(context, condition, builder::append);
 		}
 
-		if (segment instanceof OrCondition) {
-			return new MultiConcatConditionVisitor(context, (OrCondition) segment, builder::append);
+		if (segment instanceof OrCondition condition) {
+			return new MultiConcatConditionVisitor(context, condition, builder::append);
 		}
 
 		if (segment instanceof IsNull) {
 			return new IsNullVisitor(context, builder::append);
 		}
 
-		if (segment instanceof Between) {
-			return new BetweenVisitor((Between) segment, context, builder::append);
+		if (segment instanceof Between between) {
+			return new BetweenVisitor(between, context, builder::append);
 		}
 
-		if (segment instanceof Comparison) {
-			return new ComparisonVisitor(context, (Comparison) segment, builder::append);
+		if (segment instanceof Comparison comparison) {
+			return new ComparisonVisitor(context, comparison, builder::append);
 		}
 
-		if (segment instanceof Like) {
-			return new LikeVisitor((Like) segment, context, builder::append);
+		if (segment instanceof Like like) {
+			return new LikeVisitor(like, context, builder::append);
 		}
 
-		if (segment instanceof In) {
+		if (segment instanceof In in) {
 
-			if (((In) segment).hasExpressions()) {
+			if (in.hasExpressions()) {
 				return new InVisitor(context, builder::append);
 			} else {
 				return new EmptyInVisitor(context, builder::append);

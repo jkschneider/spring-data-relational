@@ -283,8 +283,8 @@ class JdbcAggregateChangeExecutionContext {
 
 		if (roots.isEmpty()) {
 			throw new IllegalStateException(
-					String.format("Cannot retrieve the resulting instance(s) unless a %s or %s action was successfully executed",
-							DbAction.InsertRoot.class.getName(), DbAction.UpdateRoot.class.getName()));
+		"Cannot retrieve the resulting instance(s) unless a %s or %s action was successfully executed".formatted(
+	DbAction.InsertRoot.class.getName(), DbAction.UpdateRoot.class.getName()));
 		}
 
 		Collections.reverse(roots);
@@ -316,8 +316,8 @@ class JdbcAggregateChangeExecutionContext {
 	@SuppressWarnings("unchecked")
 	private PersistentPropertyPath<?> getRelativePath(DbAction<?> action, PersistentPropertyPath<?> pathToValue) {
 
-		if (action instanceof DbAction.Insert) {
-			return pathToValue.getExtensionForBaseOf(((DbAction.Insert) action).getPropertyPath());
+		if (action instanceof DbAction.Insert insert) {
+			return pathToValue.getExtensionForBaseOf(insert.getPropertyPath());
 		}
 
 		if (action instanceof DbAction.InsertRoot) {
@@ -328,7 +328,7 @@ class JdbcAggregateChangeExecutionContext {
 			return pathToValue;
 		}
 
-		throw new IllegalArgumentException(String.format("DbAction of type %s is not supported", action.getClass()));
+		throw new IllegalArgumentException("DbAction of type %s is not supported".formatted(action.getClass()));
 	}
 
 	private <T> RelationalPersistentEntity<T> getRequiredPersistentEntity(Class<T> type) {
@@ -340,7 +340,7 @@ class JdbcAggregateChangeExecutionContext {
 		if (!accessStrategy.update(update.getEntity(), update.getEntityType())) {
 
 			throw new IncorrectUpdateSemanticsDataAccessException(
-					String.format(UPDATE_FAILED, update.getEntity(), getIdFrom(update)));
+		UPDATE_FAILED.formatted(update.getEntity(), getIdFrom(update)));
 		}
 	}
 
@@ -351,7 +351,7 @@ class JdbcAggregateChangeExecutionContext {
 
 		if (!accessStrategy.updateWithVersion(update.getEntity(), update.getEntityType(), previousVersion)) {
 
-			throw new OptimisticLockingFailureException(String.format(UPDATE_FAILED_OPTIMISTIC_LOCKING, update.getEntity()));
+			throw new OptimisticLockingFailureException(UPDATE_FAILED_OPTIMISTIC_LOCKING.formatted(update.getEntity()));
 		}
 	}
 
@@ -402,7 +402,7 @@ class JdbcAggregateChangeExecutionContext {
 				}
 			}
 
-			throw new IllegalStateException(String.format("Can't handle path %s", path));
+			throw new IllegalStateException("Can't handle path %s".formatted(path));
 		}
 
 		/**

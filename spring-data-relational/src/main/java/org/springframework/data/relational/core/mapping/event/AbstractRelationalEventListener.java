@@ -74,7 +74,7 @@ public class AbstractRelationalEventListener<E> implements ApplicationListener<A
 	protected void onBeforeConvert(BeforeConvertEvent<E> event) {
 
 		if (LOG.isDebugEnabled()) {
-			LOG.debug(String.format("onBeforeConvert(%s)", event.getEntity()));
+			LOG.debug("onBeforeConvert(%s)".formatted(event.getEntity()));
 		}
 	}
 
@@ -86,7 +86,7 @@ public class AbstractRelationalEventListener<E> implements ApplicationListener<A
 	protected void onBeforeSave(BeforeSaveEvent<E> event) {
 
 		if (LOG.isDebugEnabled()) {
-			LOG.debug(String.format("onBeforeSave(%s)", event.getAggregateChange()));
+			LOG.debug("onBeforeSave(%s)".formatted(event.getAggregateChange()));
 		}
 	}
 
@@ -98,7 +98,7 @@ public class AbstractRelationalEventListener<E> implements ApplicationListener<A
 	protected void onAfterSave(AfterSaveEvent<E> event) {
 
 		if (LOG.isDebugEnabled()) {
-			LOG.debug(String.format("onAfterSave(%s)", event.getAggregateChange()));
+			LOG.debug("onAfterSave(%s)".formatted(event.getAggregateChange()));
 		}
 	}
 
@@ -111,7 +111,7 @@ public class AbstractRelationalEventListener<E> implements ApplicationListener<A
 	protected void onAfterConvert(AfterConvertEvent<E> event) {
 
 		if (LOG.isDebugEnabled()) {
-			LOG.debug(String.format("onAfterConvert(%s)", event.getEntity()));
+			LOG.debug("onAfterConvert(%s)".formatted(event.getEntity()));
 		}
 	}
 
@@ -123,7 +123,7 @@ public class AbstractRelationalEventListener<E> implements ApplicationListener<A
 	protected void onAfterDelete(AfterDeleteEvent<E> event) {
 
 		if (LOG.isDebugEnabled()) {
-			LOG.debug(String.format("onAfterDelete(%s)", event.getAggregateChange()));
+			LOG.debug("onAfterDelete(%s)".formatted(event.getAggregateChange()));
 		}
 	}
 
@@ -135,7 +135,7 @@ public class AbstractRelationalEventListener<E> implements ApplicationListener<A
 	protected void onBeforeDelete(BeforeDeleteEvent<E> event) {
 
 		if (LOG.isDebugEnabled()) {
-			LOG.debug(String.format("onBeforeDelete(%s)", event.getAggregateChange()));
+			LOG.debug("onBeforeDelete(%s)".formatted(event.getAggregateChange()));
 		}
 	}
 

@@ -33,10 +33,12 @@ public class R2dbcApp {
 
     R2dbcEntityTemplate template = new R2dbcEntityTemplate(connectionFactory);
 
-    template.getDatabaseClient().sql("CREATE TABLE person" +
-        "(id VARCHAR(255) PRIMARY KEY," +
-        "name VARCHAR(255)," +
-        "age INT)")
+    template.getDatabaseClient().sql("""
+        CREATE TABLE person\
+        (id VARCHAR(255) PRIMARY KEY,\
+        name VARCHAR(255),\
+        age INT)\
+        """)
       .fetch()
       .rowsUpdated()
       .as(StepVerifier::create)

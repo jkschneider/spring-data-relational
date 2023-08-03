@@ -31,8 +31,8 @@ final class DbActionTestSupport {
 
 	static String extractPath(DbAction<?> action) {
 
-		if (action instanceof DbAction.WithPropertyPath) {
-			return ((DbAction.WithPropertyPath<?>) action).getPropertyPath().toDotPath();
+		if (action instanceof DbAction.WithPropertyPath path) {
+			return path.getPropertyPath().toDotPath();
 		}
 
 		return "";
@@ -45,8 +45,8 @@ final class DbActionTestSupport {
 	@Nullable
 	static Class<?> actualEntityType(DbAction<?> a) {
 
-		if (a instanceof DbAction.WithEntity) {
-			return ((DbAction.WithEntity<?>) a).getEntity().getClass();
+		if (a instanceof DbAction.WithEntity entity) {
+			return entity.getEntity().getClass();
 		}
 		return null;
 	}
@@ -54,12 +54,12 @@ final class DbActionTestSupport {
 	@Nullable
 	static IdValueSource insertIdValueSource(DbAction<?> action) {
 
-		if (action instanceof DbAction.WithEntity<?>) {
-			return ((DbAction.WithEntity<?>) action).getIdValueSource();
-		} else if (action instanceof DbAction.BatchInsert) {
-			return ((DbAction.BatchInsert<?>) action).getBatchValue();
-		} else if (action instanceof DbAction.BatchInsertRoot<?>) {
-			return ((DbAction.BatchInsertRoot<?>) action).getBatchValue();
+		if (action instanceof DbAction.WithEntity<?> entity) {
+			return entity.getIdValueSource();
+		} else if (action instanceof DbAction.BatchInsert insert) {
+			return insert.getBatchValue();
+		} else if (action instanceof DbAction.BatchInsertRoot<?> root) {
+			return root.getBatchValue();
 		} else {
 			return null;
 		}

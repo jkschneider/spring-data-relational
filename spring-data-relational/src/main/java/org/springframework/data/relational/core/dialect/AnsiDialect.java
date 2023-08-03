@@ -38,17 +38,17 @@ public class AnsiDialect extends AbstractDialect {
 
 		@Override
 		public String getLimit(long limit) {
-			return String.format("FETCH FIRST %d ROWS ONLY", limit);
+			return "FETCH FIRST %d ROWS ONLY".formatted(limit);
 		}
 
 		@Override
 		public String getOffset(long offset) {
-			return String.format("OFFSET %d ROWS", offset);
+			return "OFFSET %d ROWS".formatted(offset);
 		}
 
 		@Override
 		public String getLimitOffset(long limit, long offset) {
-			return String.format("OFFSET %d ROWS FETCH FIRST %d ROWS ONLY", offset, limit);
+			return "OFFSET %d ROWS FETCH FIRST %d ROWS ONLY".formatted(offset, limit);
 		}
 
 		@Override

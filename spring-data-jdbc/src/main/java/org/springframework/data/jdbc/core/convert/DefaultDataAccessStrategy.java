@@ -149,7 +149,7 @@ public class DefaultDataAccessStrategy implements DataAccessStrategy {
 		if (affectedRows == 0) {
 
 			throw new OptimisticLockingFailureException(
-					String.format("Optimistic lock exception on saving entity of type %s", persistentEntity.getName()));
+		"Optimistic lock exception on saving entity of type %s".formatted(persistentEntity.getName()));
 		}
 
 		return true;
@@ -186,7 +186,7 @@ public class DefaultDataAccessStrategy implements DataAccessStrategy {
 
 		if (affectedRows == 0) {
 			throw new OptimisticLockingFailureException(
-					String.format("Optimistic lock exception deleting entity of type %s", persistentEntity.getName()));
+		"Optimistic lock exception deleting entity of type %s".formatted(persistentEntity.getName()));
 		}
 	}
 

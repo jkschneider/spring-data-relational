@@ -134,10 +134,10 @@ public class QueryMapper {
 			Field field = createPropertyField(entity, column.getName());
 			TableLike table = column.getTable();
 
-			Assert.state(table != null, String.format("The column %s must have a table set", column));
+			Assert.state(table != null, "The column %s must have a table set".formatted(column));
 
 			Column columnFromTable = table.column(field.getMappedColumnName());
-			return column instanceof Aliased ? columnFromTable.as(((Aliased) column).getAlias()) : columnFromTable;
+			return column instanceof Aliased a ? columnFromTable.as(a.getAlias()) : columnFromTable;
 		}
 
 		if (expression instanceof SimpleFunction function) {
@@ -151,10 +151,10 @@ public class QueryMapper {
 
 			SimpleFunction mappedFunction = SimpleFunction.create(function.getFunctionName(), mappedArguments);
 
-			return function instanceof Aliased ? mappedFunction.as(((Aliased) function).getAlias()) : mappedFunction;
+			return function instanceof Aliased a ? mappedFunction.as(a.getAlias()) : mappedFunction;
 		}
 
-		throw new IllegalArgumentException(String.format("Cannot map %s", expression));
+		throw new IllegalArgumentException("Cannot map %s".formatted(expression));
 	}
 
 	/**
@@ -303,11 +303,11 @@ public class QueryMapper {
 			mappedValue = convertValue(comparator, value, propertyField.getTypeHint());
 			sqlType = propertyField.getSqlType();
 
-		} else if (propertyField instanceof MetadataBackedField //
-				&& ((MetadataBackedField) propertyField).property != null //
+		} else if (propertyField instanceof MetadataBackedField field //
+				&& field.property != null //
 				&& (criteria.getValue() == null || !criteria.getValue().getClass().isArray())) {
 
-			RelationalPersistentProperty property = ((MetadataBackedField) propertyField).property;
+			RelationalPersistentProperty property = field.property;
 			JdbcValue jdbcValue = convertToJdbcValue(property, criteria.getValue());
 			mappedValue = jdbcValue.getValue();
 			sqlType = jdbcValue.getJdbcType() != null ? jdbcValue.getJdbcType() : propertyField.getSqlType();
@@ -335,19 +335,19 @@ public class QueryMapper {
 			return JdbcValue.of(null, JDBCType.NULL);
 		}
 
-		if (value instanceof Pair) {
+		if (value instanceof Pair pair) {
 
-			JdbcValue first = getWriteValue(property, ((Pair<?, ?>) value).getFirst());
-			JdbcValue second = getWriteValue(property, ((Pair<?, ?>) value).getSecond());
+			JdbcValue first = getWriteValue(property, pair.getFirst());
+			JdbcValue second = getWriteValue(property, pair.getSecond());
 			return JdbcValue.of(Pair.of(first.getValue(), second.getValue()), first.getJdbcType());
 		}
 
-		if (value instanceof Iterable) {
+		if (value instanceof Iterable iterable) {
 
 			List<Object> mapped = new ArrayList<>();
 			SQLType jdbcType = null;
 
-			for (Object o : (Iterable<?>) value) {
+			for (Object o : iterable) {
 
 				JdbcValue jdbcValue = getWriteValue(property, o);
 				if (jdbcType == null) {
@@ -464,9 +464,7 @@ public class QueryMapper {
 			return null;
 		}
 
-		if (value instanceof Pair) {
-
-			Pair<Object, Object> pair = (Pair<Object, Object>) value;
+		if (value instanceof Pair pair) {
 
 			Object first = convertValue(pair.getFirst(), typeInformation.getActualType() != null //
 					? typeInformation.getRequiredActualType()
@@ -505,14 +503,14 @@ public class QueryMapper {
 		if (comparator == Comparator.IS_TRUE) {
 
 			Expression bind = bindBoolean(column, parameterSource,
-					mappedValue instanceof Boolean ? (Boolean) mappedValue : true);
+					mappedValue instanceof Boolean b ? b : true);
 			return column.isEqualTo(bind);
 		}
 
 		if (comparator == Comparator.IS_FALSE) {
 
 			Expression bind = bindBoolean(column, parameterSource,
-					mappedValue instanceof Boolean ? (Boolean) mappedValue : false);
+					mappedValue instanceof Boolean b ? b : false);
 			return column.isEqualTo(bind);
 		}
 
@@ -525,12 +523,12 @@ public class QueryMapper {
 
 			Condition condition;
 
-			if (mappedValue instanceof Iterable) {
+			if (mappedValue instanceof Iterable iterable) {
 
 				List<Expression> expressions = new ArrayList<>(
-						mappedValue instanceof Collection ? ((Collection<?>) mappedValue).size() : 10);
+						mappedValue instanceof Collection c ? c.size() : 10);
 
-				for (Object o : (Iterable<?>) mappedValue) {
+				for (Object o : iterable) {
 
 					expressions.add(bind(o, sqlType, parameterSource, column.getName().getReference()));
 				}

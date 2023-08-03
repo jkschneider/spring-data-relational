@@ -54,8 +54,8 @@ public class AsteriskFromTable extends AbstractSegment implements Expression {
 	@Override
 	public String toString() {
 
-		if (table instanceof Aliased) {
-			return ((Aliased) table).getAlias() + ".*";
+		if (table instanceof Aliased aliased) {
+			return aliased.getAlias() + ".*";
 		}
 
 		return table + ".*";

@@ -391,15 +391,17 @@ class SqlGeneratorUnitTests {
 		// this would get called when ListParent is th element type of a Map
 		String sql = sqlGenerator.getFindAllByProperty(BACKREF, unquoted("key-column"), false);
 
-		assertThat(sql).isEqualTo("SELECT dummy_entity.id1 AS id1, dummy_entity.x_name AS x_name, " //
-				+ "dummy_entity.x_other AS x_other, " //
-				+ "ref.x_l1id AS ref_x_l1id, ref.x_content AS ref_x_content, "
-				+ "ref_further.x_l2id AS ref_further_x_l2id, ref_further.x_something AS ref_further_x_something, " //
-				+ "dummy_entity.key-column AS key-column " //
-				+ "FROM dummy_entity " //
-				+ "LEFT OUTER JOIN referenced_entity ref ON ref.dummy_entity = dummy_entity.id1 " //
-				+ "LEFT OUTER JOIN second_level_referenced_entity ref_further ON ref_further.referenced_entity = ref.x_l1id " //
-				+ "WHERE dummy_entity.backref = :backref");
+		assertThat(sql).isEqualTo("""
+				SELECT dummy_entity.id1 AS id1, dummy_entity.x_name AS x_name, \
+				dummy_entity.x_other AS x_other, \
+				ref.x_l1id AS ref_x_l1id, ref.x_content AS ref_x_content, \
+				ref_further.x_l2id AS ref_further_x_l2id, ref_further.x_something AS ref_further_x_something, \
+				dummy_entity.key-column AS key-column \
+				FROM dummy_entity \
+				LEFT OUTER JOIN referenced_entity ref ON ref.dummy_entity = dummy_entity.id1 \
+				LEFT OUTER JOIN second_level_referenced_entity ref_further ON ref_further.referenced_entity = ref.x_l1id \
+				WHERE dummy_entity.backref = :backref\
+				""");
 	}
 
 	@Test // DATAJDBC-130
@@ -414,16 +416,18 @@ class SqlGeneratorUnitTests {
 		// this would get called when ListParent is th element type of a Map
 		String sql = sqlGenerator.getFindAllByProperty(BACKREF, unquoted("key-column"), true);
 
-		assertThat(sql).isEqualTo("SELECT dummy_entity.id1 AS id1, dummy_entity.x_name AS x_name, " //
-				+ "dummy_entity.x_other AS x_other, " //
-				+ "ref.x_l1id AS ref_x_l1id, ref.x_content AS ref_x_content, "
-				+ "ref_further.x_l2id AS ref_further_x_l2id, ref_further.x_something AS ref_further_x_something, " //
-				+ "dummy_entity.key-column AS key-column " //
-				+ "FROM dummy_entity " //
-				+ "LEFT OUTER JOIN referenced_entity ref ON ref.dummy_entity = dummy_entity.id1 " //
-				+ "LEFT OUTER JOIN second_level_referenced_entity ref_further ON ref_further.referenced_entity = ref.x_l1id " //
-				+ "WHERE dummy_entity.backref = :backref " //
-				+ "ORDER BY key-column");
+		assertThat(sql).isEqualTo("""
+				SELECT dummy_entity.id1 AS id1, dummy_entity.x_name AS x_name, \
+				dummy_entity.x_other AS x_other, \
+				ref.x_l1id AS ref_x_l1id, ref.x_content AS ref_x_content, \
+				ref_further.x_l2id AS ref_further_x_l2id, ref_further.x_something AS ref_further_x_something, \
+				dummy_entity.key-column AS key-column \
+				FROM dummy_entity \
+				LEFT OUTER JOIN referenced_entity ref ON ref.dummy_entity = dummy_entity.id1 \
+				LEFT OUTER JOIN second_level_referenced_entity ref_further ON ref_further.referenced_entity = ref.x_l1id \
+				WHERE dummy_entity.backref = :backref \
+				ORDER BY key-column\
+				""");
 	}
 
 	@Test // GH-1073
@@ -563,10 +567,13 @@ class SqlGeneratorUnitTests {
 
 		final SqlGenerator sqlGenerator = createSqlGenerator(EntityWithReadOnlyProperty.class);
 
-		assertThat(sqlGenerator.getFindAll()).isEqualToIgnoringCase("SELECT "
-				+ "entity_with_read_only_property.x_id AS x_id, " + "entity_with_read_only_property.x_name AS x_name, "
-				+ "entity_with_read_only_property.x_read_only_value AS x_read_only_value "
-				+ "FROM entity_with_read_only_property");
+		assertThat(sqlGenerator.getFindAll()).isEqualToIgnoringCase("""
+				SELECT \
+				entity_with_read_only_property.x_id AS x_id, \
+				entity_with_read_only_property.x_name AS x_name, \
+				entity_with_read_only_property.x_read_only_value AS x_read_only_value \
+				FROM entity_with_read_only_property\
+				""");
 	}
 
 	@Test // DATAJDBC-324
@@ -925,8 +932,8 @@ class SqlGeneratorUnitTests {
 	@Nullable
 	private SqlIdentifier getAlias(Object maybeAliased) {
 
-		if (maybeAliased instanceof Aliased) {
-			return ((Aliased) maybeAliased).getAlias();
+		if (maybeAliased instanceof Aliased aliased) {
+			return aliased.getAlias();
 		}
 		return null;
 	}

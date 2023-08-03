@@ -524,14 +524,14 @@ class SqlGenerator {
 		}
 
 		Assert.isTrue(select instanceof SelectBuilder.SelectLimitOffset,
-				() -> String.format("Can't apply limit clause to statement of type %s", select.getClass()));
+				() -> "Can't apply limit clause to statement of type %s".formatted(select.getClass()));
 
 		SelectBuilder.SelectLimitOffset limitable = (SelectBuilder.SelectLimitOffset) select;
 		SelectBuilder.SelectLimitOffset limitResult = limitable.limitOffset(pageable.getPageSize(), pageable.getOffset());
 
-		Assert.state(limitResult instanceof SelectBuilder.SelectOrdered, String.format(
-				"The result of applying the limit-clause must be of type SelectOrdered in order to apply the order-by-clause but is of type %s",
-				select.getClass()));
+		Assert.state(limitResult instanceof SelectBuilder.SelectOrdered, 
+	"The result of applying the limit-clause must be of type SelectOrdered in order to apply the order-by-clause but is of type %s".formatted(
+select.getClass()));
 
 		return (SelectBuilder.SelectOrdered) limitResult;
 	}
@@ -802,14 +802,14 @@ class SqlGenerator {
 
 		propertyToSortBy = persistentPropertyPath.getBaseProperty();
 
-		Assert.state(propertyToSortBy != null && propertyToSortBy.isEmbedded(), () -> String.format( //
-				"Specified sorting property '%s' is expected to " + //
-						"be the property, named '%s', of embedded entity '%s', but field '%s' is " + //
-						"not marked with @Embedded", //
-				order.getProperty(), //
-				extractFieldNameFromEmbeddedProperty(order), //
-				extractEmbeddedPropertyName(order), //
-				extractEmbeddedPropertyName(order) //
+		Assert.state(propertyToSortBy != null && propertyToSortBy.isEmbedded(), () -> (//
+	"Specified sorting property '%s' is expected to " + //
+"be the property, named '%s', of embedded entity '%s', but field '%s' is " + //
+"not marked with @Embedded").formatted( //
+	order.getProperty(), //
+	extractFieldNameFromEmbeddedProperty(order), //
+	extractEmbeddedPropertyName(order), //
+	extractEmbeddedPropertyName(order) //
 		));
 
 		RelationalPersistentEntity<?> embeddedEntity = mappingContext

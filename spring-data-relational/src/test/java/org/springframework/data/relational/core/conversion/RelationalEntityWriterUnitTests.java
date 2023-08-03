@@ -228,7 +228,7 @@ public class RelationalEntityWriterUnitTests {
 						DbActionTestSupport::extractPath, //
 						DbActionTestSupport::actualEntityType, //
 						DbActionTestSupport::isWithDependsOn, //
-						dbAction -> dbAction instanceof UpdateRoot ? ((UpdateRoot<?>) dbAction).getPreviousVersion() : null) //
+						dbAction -> dbAction instanceof UpdateRoot ur ? ur.getPreviousVersion() : null) //
 				.containsExactly( //
 						tuple(UpdateRoot.class, SingleReferenceEntity.class, "", SingleReferenceEntity.class, false, 1L), //
 						tuple(Delete.class, Element.class, "other", null, false, null) //
@@ -763,8 +763,8 @@ public class RelationalEntityWriterUnitTests {
 	@Nullable
 	private Object getQualifier(DbAction a, PersistentPropertyPath<RelationalPersistentProperty> path) {
 
-		return a instanceof DbAction.WithDependingOn //
-				? ((DbAction.WithDependingOn) a).getQualifiers().get(path) //
+		return a instanceof DbAction.WithDependingOn wdo //
+				? wdo.getQualifiers().get(path) //
 				: null;
 	}
 

@@ -250,7 +250,7 @@ public class MyBatisDataAccessStrategy implements DataAccessStrategy {
 		long result = sqlSession().selectOne(statement, parameter);
 		if (result < 1) {
 
-			String message = String.format("The lock target does not exist; id: %s, statement: %s", id, statement);
+			String message = "The lock target does not exist; id: %s, statement: %s".formatted(id, statement);
 			throw new EmptyResultDataAccessException(message, 1);
 		}
 	}

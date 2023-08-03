@@ -58,8 +58,8 @@ class ColumnVisitor extends TypedSubtreeVisitor<Column> {
 	@Override
 	Delegation leaveNested(Visitable segment) {
 
-		if (segment instanceof TableLike) {
-			tableName = context.getNamingStrategy().getReferenceName((TableLike) segment);
+		if (segment instanceof TableLike like) {
+			tableName = context.getNamingStrategy().getReferenceName(like);
 		}
 
 		return super.leaveNested(segment);

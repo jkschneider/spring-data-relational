@@ -134,7 +134,7 @@ public class StringBasedJdbcQuery extends AbstractJdbcQuery {
 		String query = determineQuery();
 
 		if (ObjectUtils.isEmpty(query)) {
-			throw new IllegalStateException(String.format("No query specified on %s", getQueryMethod().getName()));
+			throw new IllegalStateException("No query specified on %s".formatted(getQueryMethod().getName()));
 		}
 
 		return queryExecution.execute(processSpelExpressions(objects, parameterMap, query), parameterMap);
@@ -157,7 +157,7 @@ public class StringBasedJdbcQuery extends AbstractJdbcQuery {
 	private String processSpelExpressions(Object[] objects, MapSqlParameterSource parameterMap, String query) {
 
 		SpelQueryContext.EvaluatingSpelQueryContext queryContext = SpelQueryContext
-				.of((counter, expression) -> String.format("__$synthetic$__%d", counter + 1), String::concat)
+				.of((counter, expression) -> "__$synthetic$__%d".formatted(counter + 1), String::concat)
 				.withEvaluationContextProvider(evaluationContextProvider);
 
 		SpelEvaluator spelEvaluator = queryContext.parse(query, getQueryMethod().getParameters());
@@ -188,13 +188,13 @@ public class StringBasedJdbcQuery extends AbstractJdbcQuery {
 		TypeInformation<?> typeInformation = parameter.getTypeInformation();
 
 		JdbcValue jdbcValue;
-		if (typeInformation.isCollectionLike() && value instanceof Collection<?>) {
+		if (typeInformation.isCollectionLike() && value instanceof Collection<?> collection) {
 
 			List<Object> mapped = new ArrayList<>();
 			SQLType jdbcType = null;
 
 			TypeInformation<?> actualType = typeInformation.getRequiredActualType();
-			for (Object o : (Iterable<?>) value) {
+			for (Object o : collection) {
 				JdbcValue elementJdbcValue = converter.writeJdbcValue(o, actualType.getType(),
 						JdbcUtil.targetSqlTypeFor(JdbcColumnTypes.INSTANCE.resolvePrimitiveType(actualType.getType())));
 				if (jdbcType == null) {
@@ -224,7 +224,7 @@ public class StringBasedJdbcQuery extends AbstractJdbcQuery {
 		String query = getQueryMethod().getDeclaredQuery();
 
 		if (ObjectUtils.isEmpty(query)) {
-			throw new IllegalStateException(String.format("No query specified on %s", getQueryMethod().getName()));
+			throw new IllegalStateException("No query specified on %s".formatted(getQueryMethod().getName()));
 		}
 
 		return query;

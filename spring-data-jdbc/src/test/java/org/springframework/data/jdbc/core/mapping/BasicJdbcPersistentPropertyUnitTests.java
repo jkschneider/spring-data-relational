@@ -129,7 +129,7 @@ public class BasicJdbcPersistentPropertyUnitTests {
 	private PersistentPropertyPathExtension getPersistentPropertyPath(Class<?> type, String propertyName) {
 		PersistentPropertyPath<RelationalPersistentProperty> path = context
 				.findPersistentPropertyPaths(type, p -> p.getName().equals(propertyName)).getFirst()
-				.orElseThrow(() -> new AssertionFailedError(String.format("Couldn't find path for '%s'", propertyName)));
+				.orElseThrow(() -> new AssertionFailedError("Couldn't find path for '%s'".formatted(propertyName)));
 
 		return new PersistentPropertyPathExtension(context, path);
 	}

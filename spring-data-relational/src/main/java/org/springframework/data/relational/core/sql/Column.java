@@ -354,7 +354,7 @@ public class Column extends AbstractSegment implements Expression, Named {
 	String getPrefix() {
 		String prefix = "";
 		if (table != null) {
-			prefix = (table instanceof Aliased ? ((Aliased) table).getAlias() : table.getName()) + ".";
+			prefix = (table instanceof Aliased a ? a.getAlias() : table.getName()) + ".";
 		}
 		return prefix;
 	}

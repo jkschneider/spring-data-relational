@@ -80,7 +80,7 @@ public abstract class AbstractDialect implements Dialect {
 			return new AfterOrderByLimitRenderFunction(limit) //
 					.andThen(PrependWithLeadingWhitespace.INSTANCE);
 		} else {
-			throw new UnsupportedOperationException(String.format("Clause position %s not supported!", limit));
+			throw new UnsupportedOperationException("Clause position %s not supported!".formatted(limit));
 		}
 	}
 

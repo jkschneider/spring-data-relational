@@ -485,15 +485,15 @@ public class Criteria implements CriteriaDefinition {
 			return value.toString();
 		}
 
-		if (value instanceof Collection) {
+		if (value instanceof Collection collection) {
 
 			StringJoiner joiner = new StringJoiner(", ");
-			((Collection<?>) value).forEach(o -> joiner.add(renderValue(o)));
+			collection.forEach(o -> joiner.add(renderValue(o)));
 			return joiner.toString();
 		}
 
 		if (value != null) {
-			return String.format("'%s'", value);
+			return "'%s'".formatted(value);
 		}
 
 		return "null";

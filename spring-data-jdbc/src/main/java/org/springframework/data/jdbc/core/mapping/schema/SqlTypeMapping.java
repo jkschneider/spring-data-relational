@@ -54,7 +54,7 @@ public interface SqlTypeMapping {
 		String columnType = getColumnType(property);
 
 		if (ObjectUtils.isEmpty(columnType)) {
-			throw new IllegalArgumentException(String.format("Cannot determined required column type for %s", property));
+			throw new IllegalArgumentException("Cannot determined required column type for %s".formatted(property));
 		}
 
 		return columnType;

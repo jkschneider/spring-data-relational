@@ -301,8 +301,8 @@ public class SqlGeneratorEmbeddedUnitTests {
 	@Nullable
 	private SqlIdentifier getAlias(Object maybeAliased) {
 
-		if (maybeAliased instanceof Aliased) {
-			return ((Aliased) maybeAliased).getAlias();
+		if (maybeAliased instanceof Aliased aliased) {
+			return aliased.getAlias();
 		}
 		return null;
 	}

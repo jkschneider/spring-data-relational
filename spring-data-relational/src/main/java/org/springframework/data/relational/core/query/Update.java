@@ -119,7 +119,7 @@ public class Update {
 
 		getAssignments().forEach((column, o) -> {
 			joiner.add(
-					String.format("%s = %s", column.toSql(IdentifierProcessing.NONE), o instanceof Number ? o : "'" + o + "'"));
+		"%s = %s".formatted(column.toSql(IdentifierProcessing.NONE), o instanceof Number ? o : "'" + o + "'"));
 		});
 
 		return "SET " + joiner;

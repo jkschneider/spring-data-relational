@@ -60,8 +60,8 @@ public class DialectResolver {
 				.findFirst() //
 				.orElseThrow(() -> {
 					return new NoDialectException(
-							String.format("Cannot determine a dialect for %s using %s; Please provide a Dialect",
-									connectionFactory.getMetadata().getName(), connectionFactory));
+				"Cannot determine a dialect for %s using %s; Please provide a Dialect".formatted(
+			connectionFactory.getMetadata().getName(), connectionFactory));
 				});
 	}
 

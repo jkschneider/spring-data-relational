@@ -40,7 +40,7 @@ public class Escaper {
 
 		if (toReplace.contains(Character.toString(escapeCharacter))) {
 			throw new IllegalArgumentException(
-					String.format("'%s' and cannot be used as escape character as it should be replaced", escapeCharacter));
+		"'%s' and cannot be used as escape character as it should be replaced".formatted(escapeCharacter));
 		}
 
 		this.escapeCharacter = escapeCharacter;

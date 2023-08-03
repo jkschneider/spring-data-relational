@@ -140,17 +140,17 @@ class JdbcQueryCreator extends RelationalQueryCreator<ParametrizedQuery> {
 
 		if (!path.getParentPath().isEmbedded() && path.getLength() > 1) {
 			throw new IllegalArgumentException(
-					String.format("Cannot query by nested property: %s", path.getRequiredPersistentPropertyPath().toDotPath()));
+		"Cannot query by nested property: %s".formatted(path.getRequiredPersistentPropertyPath().toDotPath()));
 		}
 
 		if (path.isMultiValued() || path.isMap()) {
-			throw new IllegalArgumentException(String.format("Cannot query by multi-valued property: %s",
-					path.getRequiredPersistentPropertyPath().getLeafProperty().getName()));
+			throw new IllegalArgumentException("Cannot query by multi-valued property: %s".formatted(
+		path.getRequiredPersistentPropertyPath().getLeafProperty().getName()));
 		}
 
 		if (!path.isEmbedded() && path.isEntity()) {
 			throw new IllegalArgumentException(
-					String.format("Cannot query by nested entity: %s", path.getRequiredPersistentPropertyPath().toDotPath()));
+		"Cannot query by nested entity: %s".formatted(path.getRequiredPersistentPropertyPath().toDotPath()));
 		}
 	}
 

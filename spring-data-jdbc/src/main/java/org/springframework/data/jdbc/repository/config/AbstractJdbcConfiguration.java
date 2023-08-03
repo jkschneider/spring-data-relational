@@ -130,7 +130,7 @@ public class AbstractJdbcConfiguration implements ApplicationContextAware {
 	public JdbcConverter jdbcConverter(JdbcMappingContext mappingContext, NamedParameterJdbcOperations operations,
 			@Lazy RelationResolver relationResolver, JdbcCustomConversions conversions, Dialect dialect) {
 
-		JdbcArrayColumns arrayColumns = dialect instanceof JdbcDialect ? ((JdbcDialect) dialect).getArraySupport()
+		JdbcArrayColumns arrayColumns = dialect instanceof JdbcDialect jd ? jd.getArraySupport()
 				: JdbcArrayColumns.DefaultSupport.INSTANCE;
 		DefaultJdbcTypeFactory jdbcTypeFactory = new DefaultJdbcTypeFactory(operations.getJdbcOperations(), arrayColumns);
 

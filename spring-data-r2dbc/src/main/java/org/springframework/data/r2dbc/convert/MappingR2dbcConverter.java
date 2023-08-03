@@ -185,7 +185,7 @@ public class MappingR2dbcConverter extends BasicRelationalConverter implements R
 			return readValue(value, property.getTypeInformation());
 
 		} catch (Exception o_O) {
-			throw new MappingException(String.format("Could not read property %s from column %s", property, identifier), o_O);
+			throw new MappingException("Could not read property %s from column %s".formatted(property, identifier), o_O);
 		}
 	}
 
@@ -237,13 +237,13 @@ public class MappingR2dbcConverter extends BasicRelationalConverter implements R
 
 			if (!Object.class.equals(rawComponentType) && element instanceof Collection) {
 				if (!rawComponentType.isArray() && !ClassUtils.isAssignable(Iterable.class, rawComponentType)) {
-					throw new MappingException(String.format(
-							"Cannot convert %1$s of type %2$s into an instance of %3$s; Implement a custom Converter<%2$s, %3$s> and register it with the CustomConversions",
-							element, element.getClass(), rawComponentType));
+					throw new MappingException(
+				"Cannot convert %1$s of type %2$s into an instance of %3$s; Implement a custom Converter<%2$s, %3$s> and register it with the CustomConversions".formatted(
+			element, element.getClass(), rawComponentType));
 				}
 			}
-			if (element instanceof List) {
-				items.add(readCollectionOrArray((Collection<Object>) element, componentType));
+			if (element instanceof List list) {
+				items.add(readCollectionOrArray(list, componentType));
 			} else {
 				items.add(getPotentiallyConvertedSimpleRead(element, rawComponentType));
 			}
@@ -443,7 +443,7 @@ public class MappingR2dbcConverter extends BasicRelationalConverter implements R
 
 		TypeInformation<?> componentType = null;
 
-		List<Object> collection = sink instanceof List ? (List<Object>) sink : new ArrayList<>(sink);
+		List<Object> collection = sink instanceof List l ? l : new ArrayList<>(sink);
 
 		if (type != null) {
 			componentType = type.getComponentType();
@@ -533,8 +533,8 @@ public class MappingR2dbcConverter extends BasicRelationalConverter implements R
 	public Object getArrayValue(ArrayColumns arrayColumns, RelationalPersistentProperty property, Object value) {
 
 		Class<?> actualType = null;
-		if (value instanceof Collection) {
-			actualType = CollectionUtils.findCommonElementType((Collection<?>) value);
+		if (value instanceof Collection collection) {
+			actualType = CollectionUtils.findCommonElementType(collection);
 		} else if (value.getClass().isArray()) {
 			actualType = value.getClass().getComponentType();
 		}
@@ -609,7 +609,7 @@ public class MappingR2dbcConverter extends BasicRelationalConverter implements R
 
 			Object id = propertyAccessor.getProperty(idProperty);
 			if (idProperty.getType().isPrimitive()) {
-				idPropertyUpdateNeeded = id instanceof Number && ((Number) id).longValue() == 0;
+				idPropertyUpdateNeeded = id instanceof Number n && n.longValue() == 0;
 			} else {
 				idPropertyUpdateNeeded = id == null;
 			}
@@ -672,8 +672,8 @@ public class MappingR2dbcConverter extends BasicRelationalConverter implements R
 	 */
 	private static Collection<?> asCollection(Object source) {
 
-		if (source instanceof Collection) {
-			return (Collection<?>) source;
+		if (source instanceof Collection collection) {
+			return collection;
 		}
 
 		return source.getClass().isArray() ? CollectionUtils.arrayToList(source) : Collections.singleton(source);
@@ -728,7 +728,7 @@ public class MappingR2dbcConverter extends BasicRelationalConverter implements R
 			try {
 				return this.converter.getConversionService().convert(value, type);
 			} catch (Exception o_O) {
-				throw new MappingException(String.format("Couldn't read parameter %s", parameter.getName()), o_O);
+				throw new MappingException("Couldn't read parameter %s".formatted(parameter.getName()), o_O);
 			}
 		}
 	}

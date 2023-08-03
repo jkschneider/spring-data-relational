@@ -66,7 +66,7 @@ public class PostgresDialect extends AbstractDialect {
 
 		@Override
 		public String getLimitOffset(long limit, long offset) {
-			return String.format("LIMIT %d OFFSET %d", limit, offset);
+			return "LIMIT %d OFFSET %d".formatted(limit, offset);
 		}
 
 		@Override

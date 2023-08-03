@@ -172,8 +172,7 @@ class DefaultStatementMapper implements StatementMapper {
 
 		for (Assignment assignment : boundAssignments.getAssignments()) {
 
-			if (assignment instanceof AssignValue) {
-				AssignValue assignValue = (AssignValue) assignment;
+			if (assignment instanceof AssignValue assignValue) {
 
 				insertBuilder.column(assignValue.getColumn());
 				withBuild = insertBuilder.value(assignValue.getValue());
@@ -295,20 +294,20 @@ class DefaultStatementMapper implements StatementMapper {
 
 			SqlRenderer sqlRenderer = SqlRenderer.create(this.renderContext);
 
-			if (this.source instanceof Select) {
-				return sqlRenderer.render((Select) this.source);
+			if (this.source instanceof Select select) {
+				return sqlRenderer.render(select);
 			}
 
-			if (this.source instanceof Insert) {
-				return sqlRenderer.render((Insert) this.source);
+			if (this.source instanceof Insert insert) {
+				return sqlRenderer.render(insert);
 			}
 
-			if (this.source instanceof Update) {
-				return sqlRenderer.render((Update) this.source);
+			if (this.source instanceof Update update) {
+				return sqlRenderer.render(update);
 			}
 
-			if (this.source instanceof Delete) {
-				return sqlRenderer.render((Delete) this.source);
+			if (this.source instanceof Delete delete) {
+				return sqlRenderer.render(delete);
 			}
 
 			throw new IllegalStateException("Cannot render " + this.getSource());

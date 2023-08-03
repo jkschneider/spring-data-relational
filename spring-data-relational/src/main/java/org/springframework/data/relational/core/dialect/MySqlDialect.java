@@ -75,14 +75,14 @@ public class MySqlDialect extends AbstractDialect {
 		public String getOffset(long offset) {
 			// Ugly but the official workaround for offset without limit
 			// see: https://stackoverflow.com/a/271650
-			return String.format("LIMIT %d, 18446744073709551615", offset);
+			return "LIMIT %d, 18446744073709551615".formatted(offset);
 		}
 
 		@Override
 		public String getLimitOffset(long limit, long offset) {
 
 			// LIMIT {[offset,] row_count}
-			return String.format("LIMIT %s, %s", offset, limit);
+			return "LIMIT %s, %s".formatted(offset, limit);
 		}
 
 		@Override

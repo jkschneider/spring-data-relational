@@ -185,7 +185,7 @@ public class BasicRelationalConverter implements RelationalConverter {
 			return value;
 		}
 
-		if (value instanceof Collection<?>) {
+		if (value instanceof Collection<?> collection) {
 
 			List<Object> mapped = new ArrayList<>();
 
@@ -194,7 +194,7 @@ public class BasicRelationalConverter implements RelationalConverter {
 				component = type.getRequiredComponentType();
 			}
 
-			for (Object o : (Iterable<?>) value) {
+			for (Object o : collection) {
 				mapped.add(writeValue(o, component));
 			}
 

@@ -134,7 +134,7 @@ class ExpressionEvaluatingParameterBinder {
 
 	private boolean isNamedParameterReferencedFromQuery(Optional<String> name) {
 
-		if (!name.isPresent()) {
+		if (name.isEmpty()) {
 			return false;
 		}
 

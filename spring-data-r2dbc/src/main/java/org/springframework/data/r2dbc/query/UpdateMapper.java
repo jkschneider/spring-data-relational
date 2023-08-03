@@ -111,16 +111,12 @@ public class UpdateMapper extends QueryMapper {
 		Object mappedValue;
 		Class<?> typeHint;
 
-		if (value instanceof Parameter) {
-
-			Parameter parameter = (Parameter) value;
+		if (value instanceof Parameter parameter) {
 
 			mappedValue = convertValue(parameter.getValue(), propertyField.getTypeHint());
 			typeHint = getTypeHint(mappedValue, actualType.getType(), parameter);
 
-		} else if (value instanceof ValueFunction) {
-
-			ValueFunction<Object> valueFunction = (ValueFunction<Object>) value;
+		} else if (value instanceof ValueFunction valueFunction) {
 
 			mappedValue = convertValue(valueFunction.apply(Escaper.DEFAULT), propertyField.getTypeHint());
 

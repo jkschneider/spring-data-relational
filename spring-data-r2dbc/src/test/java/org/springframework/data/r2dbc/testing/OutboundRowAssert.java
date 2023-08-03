@@ -325,7 +325,13 @@ public class OutboundRowAssert extends AbstractMapAssert<OutboundRowAssert, Outb
 
 			if (!this.actual.getType().equals(type)) {
 				failWithMessage(new BasicErrorMessageFactory(
-						"Expecting\n" + "  <%s>\n" + "to be instance of:\n" + "  <%s>\n" + "but was not", actual.getType(), type)
+						"""
+						Expecting
+						  <%s>
+						to be instance of:
+						  <%s>
+						but was not\
+						""", actual.getType(), type)
 								.create());
 			}
 

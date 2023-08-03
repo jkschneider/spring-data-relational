@@ -76,7 +76,7 @@ class DefaultRootAggregateChange<T> implements RootAggregateChange<T> {
 	public void setRoot(T aggregateRoot) {
 
 		Assert.isInstanceOf(this.entityType, aggregateRoot,
-				String.format("AggregateRoot must be of type %s", entityType.getName()));
+	"AggregateRoot must be of type %s".formatted(entityType.getName()));
 
 		rootAction.setEntity(aggregateRoot);
 	}

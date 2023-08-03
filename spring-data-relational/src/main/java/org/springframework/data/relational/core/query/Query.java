@@ -265,9 +265,12 @@ public class Query {
 
 		for (Sort.Order order : sort) {
 			if (order.isIgnoreCase()) {
-				throw new IllegalArgumentException(String.format(
-						"Given sort contained an Order for %s with ignore case;" + "Ignore case sorting is not supported",
-						order.getProperty()));
+				throw new IllegalArgumentException((
+			"""
+			Given sort contained an Order for %s with ignore case;\
+			Ignore case sorting is not supported\
+			""").formatted(
+			order.getProperty()));
 			}
 		}
 	}

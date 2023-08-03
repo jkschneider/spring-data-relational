@@ -265,7 +265,7 @@ public class DefaultReactiveDataAccessStrategy implements ReactiveDataAccessStra
 
 			if (value == null) {
 				throw new InvalidDataAccessApiUsageException(
-						String.format("No parameter specified for [%s] in query [%s]", parameterName, query));
+			"No parameter specified for [%s] in query [%s]".formatted(parameterName, query));
 			}
 
 			namedBindings.put(parameterName, value);

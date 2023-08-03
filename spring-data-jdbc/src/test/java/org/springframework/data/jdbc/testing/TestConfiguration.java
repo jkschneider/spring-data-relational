@@ -138,7 +138,7 @@ public class TestConfiguration {
 			CustomConversions conversions, @Qualifier("namedParameterJdbcTemplate") NamedParameterJdbcOperations template,
 			Dialect dialect) {
 
-		JdbcArrayColumns arrayColumns = dialect instanceof JdbcDialect ? ((JdbcDialect) dialect).getArraySupport()
+		JdbcArrayColumns arrayColumns = dialect instanceof JdbcDialect jd ? jd.getArraySupport()
 				: JdbcArrayColumns.DefaultSupport.INSTANCE;
 
 		return new BasicJdbcConverter( //

@@ -500,7 +500,7 @@ class SaveBatchingAggregateChangeTest {
 
 		return getBatchWithValueActions(actions, entityType, batchActionType).stream()
 				.filter(batchWithValue -> batchWithValue.getBatchValue() == batchValue).findFirst().orElseThrow(
-						() -> new RuntimeException(String.format("No BatchWithValue with batch value '%s' found", batchValue)));
+						() -> new RuntimeException("No BatchWithValue with batch value '%s' found".formatted(batchValue)));
 	}
 
 	@SuppressWarnings("unchecked")

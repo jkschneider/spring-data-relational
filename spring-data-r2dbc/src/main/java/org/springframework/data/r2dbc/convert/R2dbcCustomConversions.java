@@ -42,7 +42,7 @@ public class R2dbcCustomConversions extends CustomConversions {
 	 */
 	public R2dbcCustomConversions(StoreConversions storeConversions, Collection<?> converters) {
 		super(new R2dbcCustomConversionsConfiguration(storeConversions,
-				converters instanceof List ? (List<?>) converters : new ArrayList<>(converters)));
+				converters instanceof List l ? l : new ArrayList<>(converters)));
 	}
 
 	protected R2dbcCustomConversions(ConverterConfiguration converterConfiguration) {

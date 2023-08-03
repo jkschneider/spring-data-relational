@@ -85,21 +85,19 @@ class ExpressionVisitor extends TypedSubtreeVisitor<Expression> implements PartR
 			return Delegation.delegateTo(visitor);
 		}
 
-		if (segment instanceof Column) {
-
-			Column column = (Column) segment;
+		if (segment instanceof Column column) {
 
 			value = aliasHandling == AliasHandling.USE ? NameRenderer.fullyQualifiedReference(context, column)
 					: NameRenderer.fullyQualifiedUnaliasedReference(context, column);
 		} else if (segment instanceof BindMarker) {
 
-			if (segment instanceof Named) {
-				value = NameRenderer.render(context, (Named) segment);
+			if (segment instanceof Named named) {
+				value = NameRenderer.render(context, named);
 			} else {
 				value = segment.toString();
 			}
-		} else if (segment instanceof AsteriskFromTable) {
-			value = NameRenderer.render(context, ((AsteriskFromTable) segment).getTable()) + ".*";
+		} else if (segment instanceof AsteriskFromTable table) {
+			value = NameRenderer.render(context, table.getTable()) + ".*";
 		} else if (segment instanceof Cast) {
 
 			CastVisitor visitor = new CastVisitor(context);

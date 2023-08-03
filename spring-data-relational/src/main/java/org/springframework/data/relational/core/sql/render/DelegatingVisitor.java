@@ -71,9 +71,9 @@ abstract class DelegatingVisitor implements Visitor {
 
 			Delegation visitor = doEnter(segment);
 			Assert.notNull(visitor,
-					() -> String.format("Visitor must not be null Caused by %s.doEnter(…)", getClass().getName()));
+					() -> "Visitor must not be null Caused by %s.doEnter(…)".formatted(getClass().getName()));
 			Assert.state(!visitor.isLeave(),
-					() -> String.format("Delegation indicates leave. Caused by %s.doEnter(…)", getClass().getName()));
+					() -> "Delegation indicates leave. Caused by %s.doEnter(…)".formatted(getClass().getName()));
 
 			if (visitor.isDelegate()) {
 				delegation.push(visitor.getDelegate());
@@ -112,7 +112,7 @@ abstract class DelegatingVisitor implements Visitor {
 
 				Delegation result = visitor.doLeave0(segment);
 				Assert.notNull(visitor,
-						() -> String.format("Visitor must not be null Caused by %s.doLeave(…)", getClass().getName()));
+						() -> "Visitor must not be null Caused by %s.doLeave(…)".formatted(getClass().getName()));
 
 				if (visitor == this) {
 					if (result.isLeave()) {

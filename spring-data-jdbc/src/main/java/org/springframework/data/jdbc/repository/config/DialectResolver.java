@@ -79,7 +79,7 @@ public class DialectResolver {
 				.flatMap(Optionals::toStream) //
 				.findFirst() //
 				.orElseThrow(() -> new NoDialectException(
-						String.format("Cannot determine a dialect for %s; Please provide a Dialect", operations)));
+	"Cannot determine a dialect for %s; Please provide a Dialect".formatted(operations)));
 	}
 
 	/**
@@ -140,7 +140,7 @@ public class DialectResolver {
 				return OracleDialect.INSTANCE;
 			}
 
-			LOG.info(String.format("Couldn't determine Dialect for \"%s\"", name));
+			LOG.info("Couldn't determine Dialect for \"%s\"".formatted(name));
 			return null;
 		}
 

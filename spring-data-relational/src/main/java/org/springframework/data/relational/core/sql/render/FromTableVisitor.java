@@ -61,8 +61,8 @@ class FromTableVisitor extends TypedSubtreeVisitor<TableLike> {
 		Assert.state(builder != null, "Builder must not be null in leaveMatched");
 
 		builder.append(NameRenderer.render(context, segment));
-		if (segment instanceof Aliased) {
-			builder.append(" ").append(NameRenderer.render(context, (Aliased) segment));
+		if (segment instanceof Aliased aliased) {
+			builder.append(" ").append(NameRenderer.render(context, aliased));
 		}
 
 		parent.onRendered(builder);

@@ -1076,12 +1076,12 @@ public class EntityRowMapperUnitTests {
 
 		Assert.isTrue( //
 				values.length % columns.size() == 0, //
-				String //
-						.format( //
-								"Number of values [%d] must be a multiple of the number of columns [%d]", //
-								values.length, //
-								columns.size() //
-						) //
+	 //
+	"Number of values [%d] must be a multiple of the number of columns [%d]" //
+	.formatted( //
+values.length, //
+columns.size() //
+	) //
 		);
 
 		List<Map<String, Object>> result = convertValues(columns, values);
@@ -1128,7 +1128,7 @@ public class EntityRowMapperUnitTests {
 				case "getObject":
 
 					Object argument = invocation.getArgument(0);
-					String name = argument instanceof Integer ? names.get(((Integer) argument) - 1) : (String) argument;
+					String name = argument instanceof Integer i ? names.get(i - 1) : (String) argument;
 					return getObject(name);
 				case "isAfterLast":
 					return isAfterLast();
@@ -1167,7 +1167,7 @@ public class EntityRowMapperUnitTests {
 			Map<String, Object> rowMap = values.get(index);
 
 			if (!rowMap.containsKey(column)) {
-				throw new SQLException(String.format("Trying to access a column (%s) that does not exist", column));
+				throw new SQLException("Trying to access a column (%s) that does not exist".formatted(column));
 			}
 
 			return rowMap.get(column);

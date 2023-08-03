@@ -76,14 +76,14 @@ public interface SelectRenderContext {
 			String lockPrefix = (lockMode == null) ? "" : " FOR UPDATE";
 
 			if (limit.isPresent() && offset.isPresent()) {
-				return String.format("%s OFFSET %d ROWS FETCH FIRST %d ROWS ONLY", lockPrefix, offset.getAsLong(),
-						limit.getAsLong());
+				return "%s OFFSET %d ROWS FETCH FIRST %d ROWS ONLY".formatted(lockPrefix, offset.getAsLong(),
+			limit.getAsLong());
 			}
 			if (limit.isPresent()) {
-				return String.format("%s FETCH FIRST %d ROWS ONLY", lockPrefix, limit.getAsLong());
+				return "%s FETCH FIRST %d ROWS ONLY".formatted(lockPrefix, limit.getAsLong());
 			}
 			if (offset.isPresent()) {
-				return String.format("%s OFFSET %d ROWS", lockPrefix, offset.getAsLong());
+				return "%s OFFSET %d ROWS".formatted(lockPrefix, offset.getAsLong());
 			}
 
 			return lockPrefix;

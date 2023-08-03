@@ -89,8 +89,8 @@ class AggregateReferenceConverters {
 
 			if (id == null) {
 				throw new IllegalStateException(
-						String.format("Aggregate references id must not be null when converting to %s from %s to %s", source,
-								sourceDescriptor, targetDescriptor));
+			"Aggregate references id must not be null when converting to %s from %s to %s".formatted(source,
+		sourceDescriptor, targetDescriptor));
 			}
 
 			return delegate.convert(id, TypeDescriptor.valueOf(id.getClass()), targetDescriptor);

@@ -35,6 +35,6 @@ public final class PersistentPropertyPathTestUtils {
 				.filter(p -> p.toDotPath().equals(path)) //
 				.stream() //
 				.findFirst() //
-				.orElseThrow(() -> new IllegalArgumentException(String.format("No path for %s based on %s", path, baseType)));
+				.orElseThrow(() -> new IllegalArgumentException("No path for %s based on %s".formatted(path, baseType)));
 	}
 }

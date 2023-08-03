@@ -120,9 +120,11 @@ public abstract class RelationalQueryCreator<T> extends AbstractQueryCreator<T, 
 
 		if (!parameters.getBindableParameters().hasParameterAt(index)) {
 
-			String msgTemplate = "Query method expects at least %d arguments but only found %d. "
-					+ "This leaves an operator of type %s for property %s unbound.";
-			String formattedMsg = String.format(msgTemplate, index + 1, index, type.name(), property);
+			String msgTemplate = """
+					Query method expects at least %d arguments but only found %d. \
+					This leaves an operator of type %s for property %s unbound.\
+					""";
+			String formattedMsg = msgTemplate.formatted(index + 1, index, type.name(), property);
 			throw new IllegalStateException(formattedMsg);
 		}
 
@@ -152,7 +154,7 @@ public abstract class RelationalQueryCreator<T> extends AbstractQueryCreator<T, 
 
 	private static String wrongParameterTypeMessage(String property, Part.Type operatorType, String expectedArgumentType,
 			Parameter parameter) {
-		return String.format("Operator %s on %s requires a %s argument, found %s", operatorType.name(), property,
-				expectedArgumentType, parameter.getType());
+		return "Operator %s on %s requires a %s argument, found %s".formatted(operatorType.name(), property,
+	expectedArgumentType, parameter.getType());
 	}
 }

@@ -36,8 +36,8 @@ class EnabledOnClassCondition implements ExecutionCondition {
 	public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
 		return findAnnotation(context.getElement(), EnabledOnClass.class) //
 				.map(annotation -> isEnabled(annotation)
-						? enabled(String.format("Class '%s' found on the class path.", annotation.value()))
-						: disabled(String.format("Class '%s' not found on the class path.", annotation.value()))) //
+						? enabled("Class '%s' found on the class path.".formatted(annotation.value()))
+						: disabled("Class '%s' not found on the class path.".formatted(annotation.value()))) //
 				.orElseGet(this::enabledByDefault);
 	}
 

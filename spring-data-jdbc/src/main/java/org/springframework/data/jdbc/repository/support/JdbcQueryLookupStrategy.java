@@ -152,8 +152,8 @@ abstract class JdbcQueryLookupStrategy implements QueryLookupStrategy {
 			if (namedQueries.hasQuery(queryMethod.getNamedQueryName()) || queryMethod.hasAnnotatedQuery()) {
 
 				if (queryMethod.hasAnnotatedQuery() && queryMethod.hasAnnotatedQueryName()) {
-					LOG.warn(String.format(
-							"Query method %s is annotated with both, a query and a query name; Using the declared query", method));
+					LOG.warn(
+				"Query method %s is annotated with both, a query and a query name; Using the declared query".formatted(method));
 				}
 
 				StringBasedJdbcQuery query = new StringBasedJdbcQuery(queryMethod, getOperations(), this::createMapper,
@@ -163,7 +163,7 @@ abstract class JdbcQueryLookupStrategy implements QueryLookupStrategy {
 			}
 
 			throw new IllegalStateException(
-					String.format("Did neither find a NamedQuery nor an annotated query for method %s", method));
+		"Did neither find a NamedQuery nor an annotated query for method %s".formatted(method));
 		}
 	}
 
@@ -256,7 +256,7 @@ abstract class JdbcQueryLookupStrategy implements QueryLookupStrategy {
 
 		Key cleanedKey = key != null ? key : Key.CREATE_IF_NOT_FOUND;
 
-		LOG.debug(String.format("Using the queryLookupStrategy %s", cleanedKey));
+		LOG.debug("Using the queryLookupStrategy %s".formatted(cleanedKey));
 
 		switch (cleanedKey) {
 			case CREATE:
@@ -268,7 +268,7 @@ abstract class JdbcQueryLookupStrategy implements QueryLookupStrategy {
 						queryMappingConfiguration, operations, beanFactory, createQueryLookupStrategy, declaredQueryLookupStrategy,
 						evaluationContextProvider);
 			default:
-				throw new IllegalArgumentException(String.format("Unsupported query lookup strategy %s", key));
+				throw new IllegalArgumentException("Unsupported query lookup strategy %s".formatted(key));
 		}
 	}
 

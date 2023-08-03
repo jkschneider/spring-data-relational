@@ -173,8 +173,8 @@ class CriteriaFactory {
 	@SuppressWarnings("unchecked")
 	private static Collection<Object> asCollection(Object value) {
 
-		if (value instanceof Collection) {
-			return (Collection<Object>) value;
+		if (value instanceof Collection collection) {
+			return collection;
 		}
 
 		if (value.getClass().isArray()) {

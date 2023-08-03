@@ -70,7 +70,7 @@ public class JdbcMappingContext extends RelationalMappingContext {
 		}
 
 		for (Parameter<Object, RelationalPersistentProperty> parameter : creator.getParameters()) {
-			Assert.state(StringUtils.hasText(parameter.getName()), () -> String.format(MISSING_PARAMETER_NAME, parameter));
+			Assert.state(StringUtils.hasText(parameter.getName()), () -> MISSING_PARAMETER_NAME.formatted(parameter));
 		}
 
 		return entity;

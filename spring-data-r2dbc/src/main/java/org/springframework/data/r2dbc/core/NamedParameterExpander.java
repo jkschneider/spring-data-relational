@@ -134,7 +134,7 @@ class NamedParameterExpander {
 				paramSource);
 
 		if (this.logger.isDebugEnabled()) {
-			this.logger.debug(String.format("Expanding SQL statement [%s] to [%s]", sql, expanded.toQuery()));
+			this.logger.debug("Expanding SQL statement [%s] to [%s]".formatted(sql, expanded.toQuery()));
 		}
 
 		return expanded;

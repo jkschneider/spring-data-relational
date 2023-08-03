@@ -43,7 +43,7 @@ class DeleteValidator extends AbstractImportValidator {
 		for (Table table : requiredByWhere) {
 			if (!from.contains(table)) {
 				throw new IllegalStateException(
-						String.format("Required table [%s] by a WHERE predicate not imported by FROM %s", table, from));
+			"Required table [%s] by a WHERE predicate not imported by FROM %s".formatted(table, from));
 			}
 		}
 	}

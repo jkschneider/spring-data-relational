@@ -161,6 +161,6 @@ class BasicRelationalPersistentEntity<T> extends BasicPersistentEntity<T, Relati
 
 	@Override
 	public String toString() {
-		return String.format("BasicRelationalPersistentEntity<%s>", getType());
+		return "BasicRelationalPersistentEntity<%s>".formatted(getType());
 	}
 }

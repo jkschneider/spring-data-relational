@@ -55,7 +55,7 @@ class ExpressionQuery {
 
 		SpelQueryContext queryContext = SpelQueryContext.of((counter, expression) -> {
 
-			String parameterName = String.format(SYNTHETIC_PARAMETER_TEMPLATE, counter);
+			String parameterName = SYNTHETIC_PARAMETER_TEMPLATE.formatted(counter);
 			parameterBindings.add(new ParameterBinding(parameterName, expression));
 			return parameterName;
 		}, String::concat);

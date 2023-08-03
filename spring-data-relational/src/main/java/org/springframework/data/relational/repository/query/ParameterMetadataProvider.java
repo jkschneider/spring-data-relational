@@ -78,7 +78,7 @@ class ParameterMetadataProvider implements Iterable<ParameterMetadata> {
 	public ParameterMetadata next(Part part) {
 
 		Assert.isTrue(bindableParameterIterator.hasNext(),
-				() -> String.format("No parameter available for part %s.", part));
+				() -> "No parameter available for part %s.".formatted(part));
 
 		Parameter parameter = bindableParameterIterator.next();
 		String parameterName = getParameterName(parameter, part.getProperty().getSegment());
@@ -120,7 +120,7 @@ class ParameterMetadataProvider implements Iterable<ParameterMetadata> {
 
 		if (parameterValue == null && !Part.Type.SIMPLE_PROPERTY.equals(partType)) {
 			throw new IllegalArgumentException(
-					String.format("Value of parameter with name %s must not be null", parameterName));
+		"Value of parameter with name %s must not be null".formatted(parameterName));
 		}
 	}
 

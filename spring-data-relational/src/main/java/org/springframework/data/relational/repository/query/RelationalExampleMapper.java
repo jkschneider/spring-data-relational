@@ -87,7 +87,7 @@ public class RelationalExampleMapper {
 					.apply(Optional.ofNullable(propertyAccessor.getProperty(property)));
 
 			// If the value is empty, don't try to match against it
-			if (!optionalConvertedPropValue.isPresent()) {
+			if (optionalConvertedPropValue.isEmpty()) {
 				return;
 			}
 

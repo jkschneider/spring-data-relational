@@ -99,8 +99,8 @@ class OrderByClauseVisitor extends TypedSubtreeVisitor<OrderByField> implements 
 			delegate = null;
 		}
 
-		if (segment instanceof Column) {
-			builder.append(NameRenderer.fullyQualifiedReference(context, (Column) segment));
+		if (segment instanceof Column column) {
+			builder.append(NameRenderer.fullyQualifiedReference(context, column));
 		}
 
 		return super.leaveNested(segment);

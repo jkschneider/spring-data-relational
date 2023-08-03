@@ -122,8 +122,10 @@ class SelectRendererUnitTests {
 				.join(department).on(employee.column("department_id")).equals(department.column("id")) //
 				.build();
 
-		assertThat(SqlRenderer.toString(select)).isEqualTo("SELECT employee.id, department.name FROM employee "
-				+ "JOIN department ON employee.department_id = department.id");
+		assertThat(SqlRenderer.toString(select)).isEqualTo("""
+				SELECT employee.id, department.name FROM employee \
+				JOIN department ON employee.department_id = department.id\
+				""");
 	}
 
 	@Test // DATAJDBC-340
@@ -137,8 +139,10 @@ class SelectRendererUnitTests {
 				.leftOuterJoin(department).on(employee.column("department_id")).equals(department.column("id")) //
 				.build();
 
-		assertThat(SqlRenderer.toString(select)).isEqualTo("SELECT employee.id, department.name FROM employee "
-				+ "LEFT OUTER JOIN department ON employee.department_id = department.id");
+		assertThat(SqlRenderer.toString(select)).isEqualTo("""
+				SELECT employee.id, department.name FROM employee \
+				LEFT OUTER JOIN department ON employee.department_id = department.id\
+				""");
 	}
 
 	@Test // GH-1421
@@ -152,8 +156,10 @@ class SelectRendererUnitTests {
 				.join(department, Join.JoinType.FULL_OUTER_JOIN).on(employee.column("department_id")).equals(department.column("id")) //
 				.build();
 
-		assertThat(SqlRenderer.toString(select)).isEqualTo("SELECT employee.id, department.name FROM employee "
-				+ "FULL OUTER JOIN department ON employee.department_id = department.id");
+		assertThat(SqlRenderer.toString(select)).isEqualTo("""
+				SELECT employee.id, department.name FROM employee \
+				FULL OUTER JOIN department ON employee.department_id = department.id\
+				""");
 	}
 
 	@Test // DATAJDBC-309

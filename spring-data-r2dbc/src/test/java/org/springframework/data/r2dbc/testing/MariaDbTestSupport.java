@@ -158,8 +158,8 @@ public class MariaDbTestSupport {
 			MariaDbDataSource dataSource = new MariaDbDataSource();
 
 			dataSource.setUser(database.getUsername());
-			dataSource.setUrl(String.format("jdbc:mariadb://%s:%d/%s?", database.getHostname(), database.getPort(),
-					database.getDatabase()));
+			dataSource.setUrl("jdbc:mariadb://%s:%d/%s?".formatted(database.getHostname(), database.getPort(),
+		database.getDatabase()));
 			dataSource.setPassword(database.getPassword());
 
 			return dataSource;

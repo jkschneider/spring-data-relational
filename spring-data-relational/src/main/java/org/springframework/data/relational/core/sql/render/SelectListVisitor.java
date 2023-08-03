@@ -73,8 +73,8 @@ class SelectListVisitor extends TypedSubtreeVisitor<SelectList> implements PartR
 			requiresComma = true;
 		}
 
-		if (segment instanceof Aliased) {
-			builder.append(" AS ").append(NameRenderer.render(context, (Aliased) segment));
+		if (segment instanceof Aliased aliased) {
+			builder.append(" AS ").append(NameRenderer.render(context, aliased));
 		}
 
 		return super.leaveNested(segment);

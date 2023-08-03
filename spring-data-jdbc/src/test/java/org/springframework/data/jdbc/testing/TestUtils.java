@@ -37,8 +37,8 @@ public interface TestUtils {
 		Assert.notNull(testClass, "Test class must not be null");
 		Assert.hasText(databaseType, "Database type must not be null or empty");
 
-		String path = String.format("%s/%s-%s.sql", testClass.getPackage().getName(), testClass.getSimpleName(),
-				databaseType.toLowerCase());
+		String path = "%s/%s-%s.sql".formatted(testClass.getPackage().getName(), testClass.getSimpleName(),
+	databaseType.toLowerCase());
 
 		ClassPathResource resource = new ClassPathResource(path);
 		if (!resource.exists()) {

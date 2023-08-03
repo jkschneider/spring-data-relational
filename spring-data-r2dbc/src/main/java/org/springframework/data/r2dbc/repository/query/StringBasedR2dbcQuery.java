@@ -219,7 +219,7 @@ public class StringBasedR2dbcQuery extends AbstractR2dbcQuery {
 
 		@Override
 		public String toString() {
-			return String.format("Original: [%s], Expanded: [%s]", expressionQuery.getQuery(), expanded.toQuery());
+			return "Original: [%s], Expanded: [%s]".formatted(expressionQuery.getQuery(), expanded.toQuery());
 		}
 	}
 
@@ -236,7 +236,7 @@ public class StringBasedR2dbcQuery extends AbstractR2dbcQuery {
 
 		@NotNull
 		private Parameter toParameter(Object value) {
-			return value instanceof Parameter ? (Parameter) value : Parameter.from(value);
+			return value instanceof Parameter p ? p : Parameter.from(value);
 		}
 
 		@Override

@@ -327,8 +327,8 @@ public class R2dbcEntityTemplate implements R2dbcEntityOperations, BeanFactoryAw
 
 		P result = resultHandler.apply(fetchSpec);
 
-		if (result instanceof Mono) {
-			return (P) ((Mono<?>) result).flatMap(it -> maybeCallAfterConvert(it, tableName));
+		if (result instanceof Mono mono) {
+			return (P) mono.flatMap(it -> maybeCallAfterConvert(it, tableName));
 		}
 
 		return (P) ((Flux<?>) result).concatMap(it -> maybeCallAfterConvert(it, tableName));
@@ -643,14 +643,14 @@ public class R2dbcEntityTemplate implements R2dbcEntityOperations, BeanFactoryAw
 
 	private <T> String formatOptimisticLockingExceptionMessage(T entity, RelationalPersistentEntity<T> persistentEntity) {
 
-		return String.format("Failed to update table [%s]; Version does not match for row with Id [%s]",
-				persistentEntity.getQualifiedTableName(), persistentEntity.getIdentifierAccessor(entity).getIdentifier());
+		return "Failed to update table [%s]; Version does not match for row with Id [%s]".formatted(
+	persistentEntity.getQualifiedTableName(), persistentEntity.getIdentifierAccessor(entity).getIdentifier());
 	}
 
 	private <T> String formatTransientEntityExceptionMessage(T entity, RelationalPersistentEntity<T> persistentEntity) {
 
-		return String.format("Failed to update table [%s]; Row with Id [%s] does not exist",
-				persistentEntity.getQualifiedTableName(), persistentEntity.getIdentifierAccessor(entity).getIdentifier());
+		return "Failed to update table [%s]; Row with Id [%s] does not exist".formatted(
+	persistentEntity.getQualifiedTableName(), persistentEntity.getIdentifierAccessor(entity).getIdentifier());
 	}
 
 	@SuppressWarnings("unchecked")

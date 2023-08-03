@@ -137,8 +137,8 @@ class WritingContext<T> {
 
 				RelationalPersistentEntity<?> parentEntity = context.getRequiredPersistentEntity(parentAction.getEntityType());
 
-				if (!parentEntity.hasIdProperty() && parentAction instanceof DbAction.Insert) {
-					qualifiers.putAll(((DbAction.Insert<?>) parentAction).getQualifiers());
+				if (!parentEntity.hasIdProperty() && parentAction instanceof DbAction.Insert insert) {
+					qualifiers.putAll(insert.getQualifiers());
 				}
 				instance = value.getSecond();
 			} else {

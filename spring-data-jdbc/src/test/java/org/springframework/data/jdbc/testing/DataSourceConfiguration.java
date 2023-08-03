@@ -99,7 +99,7 @@ abstract class DataSourceConfiguration {
 				.until(() -> {
 
 					if (LOG.isDebugEnabled()) {
-						LOG.debug(String.format("Verifying connectivity to %s...", dataSource));
+						LOG.debug("Verifying connectivity to %s...".formatted(dataSource));
 					}
 
 					try (Connection connection = dataSource.getConnection()) {

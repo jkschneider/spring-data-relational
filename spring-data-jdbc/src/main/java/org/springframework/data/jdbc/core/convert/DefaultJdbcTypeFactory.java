@@ -68,7 +68,7 @@ public class DefaultJdbcTypeFactory implements JdbcTypeFactory {
 		Class<?> componentType = arrayColumns.getArrayType(value.getClass());
 
 		SQLType jdbcType = JdbcUtil.targetSqlTypeFor(componentType);
-		Assert.notNull(jdbcType, () -> String.format("Couldn't determine JDBCType for %s", componentType));
+		Assert.notNull(jdbcType, () -> "Couldn't determine JDBCType for %s".formatted(componentType));
 		String typeName = arrayColumns.getArrayTypeName(jdbcType);
 
 		return operations.execute((ConnectionCallback<Array>) c -> c.createArrayOf(typeName, value));

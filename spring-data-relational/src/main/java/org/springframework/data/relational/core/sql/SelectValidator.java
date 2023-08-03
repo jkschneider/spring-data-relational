@@ -59,22 +59,22 @@ class SelectValidator extends AbstractImportValidator {
 
 		for (TableLike table : requiredBySelect) {
 			if (!join.contains(table) && !from.contains(table)) {
-				throw new IllegalStateException(String
-						.format("Required table [%s] by a SELECT column not imported by FROM %s or JOIN %s", table, from, join));
+				throw new IllegalStateException("Required table [%s] by a SELECT column not imported by FROM %s or JOIN %s"
+			.formatted(table, from, join));
 			}
 		}
 
 		for (Table table : requiredByWhere) {
 			if (!join.contains(table) && !from.contains(table)) {
-				throw new IllegalStateException(String
-						.format("Required table [%s] by a WHERE predicate not imported by FROM %s or JOIN %s", table, from, join));
+				throw new IllegalStateException("Required table [%s] by a WHERE predicate not imported by FROM %s or JOIN %s"
+			.formatted(table, from, join));
 			}
 		}
 
 		for (TableLike table : requiredByOrderBy) {
 			if (!join.contains(table) && !from.contains(table)) {
-				throw new IllegalStateException(String
-						.format("Required table [%s] by a ORDER BY column not imported by FROM %s or JOIN %s", table, from, join));
+				throw new IllegalStateException("Required table [%s] by a ORDER BY column not imported by FROM %s or JOIN %s"
+			.formatted(table, from, join));
 			}
 		}
 	}
@@ -82,8 +82,8 @@ class SelectValidator extends AbstractImportValidator {
 	@Override
 	public void enter(Visitable segment) {
 
-		if (segment instanceof Select) {
-			selects.push((Select) segment);
+		if (segment instanceof Select select) {
+			selects.push(select);
 		}
 
 		if (selects.size() > 1) {
@@ -94,32 +94,32 @@ class SelectValidator extends AbstractImportValidator {
 			selectFieldCount++;
 		}
 
-		if (segment instanceof AsteriskFromTable && parent instanceof Select) {
+		if (segment instanceof AsteriskFromTable fromTable && parent instanceof Select) {
 
-			TableLike table = ((AsteriskFromTable) segment).getTable();
+			TableLike table = fromTable.getTable();
 			requiredBySelect.add(table);
 		}
 
-		if (segment instanceof Column && (parent instanceof Select || parent instanceof SimpleFunction)) {
+		if (segment instanceof Column column && (parent instanceof Select || parent instanceof SimpleFunction)) {
 
-			TableLike table = ((Column) segment).getTable();
+			TableLike table = column.getTable();
 
 			if (table != null) {
 				requiredBySelect.add(table);
 			}
 		}
 
-		if (segment instanceof Column && parent instanceof OrderByField) {
+		if (segment instanceof Column column && parent instanceof OrderByField) {
 
-			TableLike table = ((Column) segment).getTable();
+			TableLike table = column.getTable();
 
 			if (table != null) {
 				requiredByOrderBy.add(table);
 			}
 		}
 
-		if (segment instanceof TableLike && parent instanceof Join) {
-			join.add((TableLike) segment);
+		if (segment instanceof TableLike like && parent instanceof Join) {
+			join.add(like);
 		}
 		super.enter(segment);
 	}

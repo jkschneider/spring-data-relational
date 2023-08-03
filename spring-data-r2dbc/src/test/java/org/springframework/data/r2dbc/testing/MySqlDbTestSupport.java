@@ -153,7 +153,7 @@ public class MySqlDbTestSupport {
 		dataSource.setUser(database.getUsername());
 		dataSource.setPassword(database.getPassword());
 		dataSource.setUrl(
-				String.format("jdbc:mysql://%s:%d/%s?", database.getHostname(), database.getPort(), database.getDatabase()));
+	"jdbc:mysql://%s:%d/%s?".formatted(database.getHostname(), database.getPort(), database.getDatabase()));
 
 		return dataSource;
 	}

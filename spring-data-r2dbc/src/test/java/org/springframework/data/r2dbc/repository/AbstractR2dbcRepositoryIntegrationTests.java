@@ -408,7 +408,7 @@ public abstract class AbstractR2dbcRepositoryIntegrationTests extends R2dbcInteg
 
 	private Condition<? super Object> numberOf(int expected) {
 		return new Condition<>(it -> {
-			return it instanceof Number && ((Number) it).intValue() == expected;
+			return it instanceof Number n && n.intValue() == expected;
 		}, "Number  %d", expected);
 	}
 

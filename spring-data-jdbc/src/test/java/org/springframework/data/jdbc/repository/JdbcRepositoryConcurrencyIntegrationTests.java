@@ -94,8 +94,8 @@ public class JdbcRepositoryConcurrencyIntegrationTests {
 			StringJoiner joiner = new StringJoiner(", ", "List(", ")");
 			l.forEach(e -> {
 
-				if (e instanceof Throwable) {
-					printThrowable(joiner, (Throwable) e);
+				if (e instanceof Throwable throwable) {
+					printThrowable(joiner, throwable);
 				} else {
 					joiner.add(e.toString());
 				}

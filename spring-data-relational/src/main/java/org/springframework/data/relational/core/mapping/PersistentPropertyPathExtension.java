@@ -155,8 +155,8 @@ public class PersistentPropertyPathExtension {
 			if (this.path == null) {
 				throw new IllegalStateException("Couldn't resolve leaf PersistentEntity absent path");
 			}
-			throw new IllegalStateException(String.format("Couldn't resolve leaf PersistentEntity for type %s",
-					path.getLeafProperty().getActualType()));
+			throw new IllegalStateException("Couldn't resolve leaf PersistentEntity for type %s".formatted(
+		path.getLeafProperty().getActualType()));
 		}
 
 		return entity;
@@ -370,8 +370,8 @@ public class PersistentPropertyPathExtension {
 
 	@Override
 	public String toString() {
-		return String.format("PersistentPropertyPathExtension[%s, %s]", entity.getName(),
-				path == null ? "-" : path.toDotPath());
+		return "PersistentPropertyPathExtension[%s, %s]".formatted(entity.getName(),
+	path == null ? "-" : path.toDotPath());
 	}
 
 	/**
